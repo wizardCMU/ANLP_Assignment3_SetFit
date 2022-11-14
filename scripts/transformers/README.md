@@ -1,4 +1,4 @@
-# Transformers Baselines
+# Transformers Baselines (Updated by Weizhe 11/14/2022)
 
 This folder contains the scripts used to train the 🤗 Transformers baselines quoted in the SetFit paper [ADD LINK].
 
@@ -13,48 +13,29 @@ conda create -n baselines-transformers python=3.9 && conda activate baselines-tr
 Next, install the required dependencies
 
 ```
-python -m pip install setfit
-python -m pip install -r requirements.txt
+pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 --extra-index-url https://download.pytorch.org/whl/cu113
+pip install transformers[sentencepiece,optuna]==4.20.0
+pip install -U scikit-learn
+pip install typer
+pip install setfit
 ```
 
 ## Usage
 
 ### Fewshot finetuning
 
-To finetune a pretrained model on a single dataset under the SetFit organization, run:
-
-```
-python run_fewshot.py train-single-dataset \
---model-id=distilbert-base-uncased \
---dataset-id=sst2 \
---metric=accuracy \
---learning-rate=2e-5 \
---batch-size=4
-```
-
 To finetune a pretrained model on all the test datasets used in SetFit, run:
 
 ```
-python run_fewshot.py train-all-datasets --model-ckpt=distilbert-base-uncased --batch-size=4
+python run_fewshot.py train-all-datasets --model-id=roberta-large --batch-size=4
 ```
 
 ### Full finetuning
 
-To finetune a pretrained model on a single dataset under the SetFit organization, run:
-
-```
-python run_full.py train-single-dataset \
---model-id=distilbert-base-uncased \
---dataset-id=sst2 \
---metric=accuracy \
---learning-rate=2e-5 \
---batch-size=24
-```
-
 To finetune a pretrained model on all the test datasets used in SetFit, run:
 
 ```
-python run_full.py train-all-datasets --model-id=distilbert-base-uncased --batch-size=24
+python run_full.py train-all-datasets --model-id=roberta-large --batch-size=4
 ```
 
 ### Multilingual finetuning
@@ -81,7 +62,7 @@ To finetune a baseline on all the multilingual test sets in the paper, run:
 
 ```
 python run_fewshot_multilingual.py train-all-datasets \
-    --model=xlm-roberta-base \
+    --model-id=xlm-roberta-base \
     --learning-rate=2e-5 \
     --batch-size=4 \
     --multilinguality=each
