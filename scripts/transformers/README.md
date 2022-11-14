@@ -32,12 +32,12 @@ Notice that we may only want to get the results for |N|=8 and |N|=64. In this ca
 python run_fewshot.py train-all-datasets --model-id=roberta-large --batch-size=4
 ```
 
-### Full finetuning
+### Full finetuning (Modified by Weizhe)
 
 To finetune a pretrained model on all the test datasets used in SetFit, run:
 
 ```
-python run_full.py train-all-datasets --model-id=roberta-large --batch-size=24
+python run_full.py train-all-datasets --model-id=roberta-large --batch-size=4
 ```
 
 ### Multilingual finetuning
