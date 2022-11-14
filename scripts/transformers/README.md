@@ -69,11 +69,3 @@ python run_fewshot_multilingual.py train-all-datasets \
     --batch-size=4 \
     --multilinguality=each
 ```
-
-### Inference benchmark
-
-To run the inference benchmark, run:
-
-```
-python run_inference.py --model-id=distilbert-base-uncased__sst2__train-16-4 --dataset-id=sst2 --num-samples=100
-```
