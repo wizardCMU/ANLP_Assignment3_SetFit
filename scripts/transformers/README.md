@@ -22,7 +22,7 @@ pip install setfit
 
 ## Usage
 
-### Fewshot finetuning
+### Fewshot finetuning (Modified by Weizhe)
 
 To finetune a pretrained model on all the test datasets used in SetFit, run:
 
