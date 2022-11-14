@@ -1,6 +1,6 @@
 # Transformers Baselines (Updated by Weizhe 11/14/2022)
 
-This folder contains the scripts used to train the 🤗 Transformers baselines quoted in the SetFit paper [ADD LINK].
+This folder contains the scripts used to train the 🤗 Transformers baselines quoted in the SetFit paper.
 
 ## Setup
 
