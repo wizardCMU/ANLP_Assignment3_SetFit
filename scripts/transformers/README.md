@@ -10,7 +10,7 @@ To run the scripts, first create a Python virtual environment, e.g. with `conda`
 conda create -n baselines-transformers python=3.9 && conda activate baselines-transformers
 ```
 
-Next, install the required dependencies
+Next, install the required dependencies (Modified by Weizhe)
 
 ```
 pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 --extra-index-url https://download.pytorch.org/whl/cu113
@@ -25,6 +25,8 @@ pip install setfit
 ### Fewshot finetuning
 
 To finetune a pretrained model on all the test datasets used in SetFit, run:
+
+Notice that we may only want to get the results for |N|=8 and |N|=64. In this case, please modify the 15th line in miniconda3/envs/baslines-transformers/lib/python3.9/site-packages/setfit/data.py: The SAMPLE_SIZES can be changed to SAMPLE_SIZES = [8, 64]
 
 ```
 python run_fewshot.py train-all-datasets --model-id=roberta-large --batch-size=4
