@@ -37,7 +37,7 @@ python run_fewshot.py train-all-datasets --model-id=roberta-large --batch-size=4
 To finetune a pretrained model on all the test datasets used in SetFit, run:
 
 ```
-python run_full.py train-all-datasets --model-id=roberta-large --batch-size=4
+python run_full.py train-all-datasets --model-id=roberta-large --batch-size=24
 ```
 
 ### Multilingual finetuning
