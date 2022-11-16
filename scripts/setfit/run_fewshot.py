@@ -29,7 +29,7 @@ def parse_args():
     parser.add_argument("--sample_sizes", type=int, nargs="+", default=SAMPLE_SIZES)
     parser.add_argument("--num_iterations", type=int, default=20)
     parser.add_argument("--num_epochs", type=int, default=1)
-    parser.add_argument("--batch_size", type=int, default=16)
+    parser.add_argument("--batch_size", type=int, default=8)
     parser.add_argument("--max_seq_length", type=int, default=256)
     parser.add_argument(
         "--classifier",
@@ -49,7 +49,7 @@ def parse_args():
     parser.add_argument("--optimizer_name", default="AdamW")
     parser.add_argument("--lr", type=float, default=0.001)
     parser.add_argument("--is_dev_set", type=bool, default=False)
-    parser.add_argument("--is_test_set", type=bool, default=False)
+    parser.add_argument("--is_test_set", type=bool, default=True)
     parser.add_argument("--override_results", default=False, action="store_true")
     parser.add_argument("--keep_body_frozen", default=False, action="store_true")
     parser.add_argument("--add_data_augmentation", default=False)
@@ -65,6 +65,11 @@ def create_results_path(dataset: str, split_name: str, output_path: str) -> Lite
     os.makedirs(os.path.dirname(results_path), exist_ok=True)
     return results_path
 
+def create_analysis_path(dataset: str, split_name: str, output_path: str) -> LiteralString:
+    analysis_path = os.path.join(output_path, dataset, split_name)
+    print(f"\n\n======== {os.path.dirname(analysis_path)} =======")
+    os.makedirs(os.path.dirname(analysis_path), exist_ok=True)
+    return analysis_path
 
 def main():
     args = parse_args()
@@ -101,6 +106,7 @@ def main():
 
         for split_name, train_data in few_shot_train_splits.items():
             results_path = create_results_path(dataset, split_name, output_path)
+            analysis_path = create_analysis_path(dataset, split_name, output_path)
             if os.path.exists(results_path) and not args.override_results:
                 print(f"Skipping finished experiment: {results_path}")
                 continue
@@ -146,6 +152,23 @@ def main():
             # Evaluate the model on the test data
             metrics = trainer.evaluate()
             print(f"Metrics: {metrics}")
+
+            train_text = train_data['text']
+            train_label = train_data['label']
+            with open(os.path.join(analysis_path,split_name)+"_train.txt", "w") as train_out:
+                for idx in range(len(train_label)):
+                    train_out.write(str(train_label[idx])+" ||| "+train_text[idx]+"\n")
+
+            test_prediction = trainer.model.predict(test_data['text'])
+            test_label = test_data['label']
+            test_text = test_data['text']
+            with open(os.path.join(analysis_path,split_name)+"_test.txt", "w") as test_out:
+                for idx in range(len(test_label)):
+                    test_out.write(str(test_label[idx])+" ||| "+test_text[idx]+"\n")
+            
+            with open(os.path.join(analysis_path,split_name)+"_prediction.txt", "w") as test_out:
+                for idx in range(len(test_label)):
+                    test_out.write(str(test_prediction[idx])+" ||| "+test_text[idx]+"\n")
 
             with open(results_path, "w") as f_out:
                 json.dump(
