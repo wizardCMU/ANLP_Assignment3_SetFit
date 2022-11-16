@@ -37,7 +37,24 @@ python run_fewshot.py train-all-datasets --model-id=roberta-large --batch-size=4
 To finetune a pretrained model on all the test datasets used in SetFit, run:
 
 ```
-python run_full.py train-all-datasets --model-id=roberta-large --batch-size=4
+python run_full.py train-all-datasets --model-id=roberta-large --batch-size=24
+```
+
+Or we can run it one by one:
+
+```
+python run_full.py train-single-dataset --dataset-id=emotion --metric=accuracy --model-id=roberta-large --learning-rate=2e-5 --batch-size=24
+rm -rf checkpoints
+python run_full.py train-single-dataset --dataset-id=sst5 --metric=accuracy --model-id=roberta-large --learning-rate=2e-5 --batch-size=24
+rm -rf checkpoints
+python run_full.py train-single-dataset --dataset-id=SentEval-CR --metric=accuracy --model-id=roberta-large --learning-rate=2e-5 --batch-size=24
+rm -rf checkpoints
+python run_full.py train-single-dataset --dataset-id=amazon_counterfactual_en --metric=matthews_correlation --model-id=roberta-large --learning-rate=2e-5 --batch-size=24
+rm -rf checkpoints
+python run_full.py train-single-dataset --dataset-id=ag_news --metric=accuracy --model-id=roberta-large --learning-rate=2e-5 --batch-size=4
+rm -rf checkpoints
+python run_full.py train-single-dataset --dataset-id=enron_spam --metric=accuracy --model-id=roberta-large --learning-rate=2e-5 --batch-size=8
+rm -rf checkpoints
 ```
 
 ### Multilingual finetuning
