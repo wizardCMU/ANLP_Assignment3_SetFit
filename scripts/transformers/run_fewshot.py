@@ -8,7 +8,7 @@ from datasets import load_dataset
 from evaluate import load
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, Trainer, TrainingArguments
 
-from setfit.data import SAMPLE_SIZES, create_fewshot_splits
+from setfit.data import create_fewshot_splits
 from setfit.utils import DEV_DATASET_TO_METRIC, TEST_DATASET_TO_METRIC
 from utils import get_label_mappings, save_metrics
 
@@ -18,10 +18,11 @@ app = typer.Typer()
 RESULTS_PATH = Path("results")
 RESULTS_PATH.mkdir(parents=True, exist_ok=True)
 
+SAMPLE_SIZES = [8, 64]#For reproducing
 
 @app.command()
 def train_single_dataset(
-    model_id: str = "distilbert-base-uncased",
+    model_id: str = "roberta-large",
     dataset_id: str = "sst2",
     metric: str = "accuracy",
     sample_sizes: List[int] = SAMPLE_SIZES,
@@ -147,7 +148,7 @@ def train_single_dataset(
 
 @app.command()
 def train_all_datasets(
-    model_id: str = "distilbert-base-uncased",
+    model_id: str = "roberta-large",
     sample_sizes: List[int] = SAMPLE_SIZES,
     learning_rate: float = 2e-5,
     batch_size: int = 4,

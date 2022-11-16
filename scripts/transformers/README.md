@@ -26,11 +26,11 @@ pip install setfit
 
 To finetune a pretrained model on all the test datasets used in SetFit, run:
 
-Notice that we may only want to get the results for |N|=8 and |N|=64. In this case, please modify the 15th line in miniconda3/envs/baslines-transformers/lib/python3.9/site-packages/setfit/data.py: The SAMPLE_SIZES can be changed to SAMPLE_SIZES = [8, 64]
-
 ```
 python run_fewshot.py train-all-datasets --model-id=roberta-large --batch-size=4
 ```
+
+To modify the number of examples for each class, please change the SAMPLE_SIZES = [8, 64] to some other values.
 
 ### Full finetuning (Modified by Weizhe)
 
@@ -38,6 +38,21 @@ To finetune a pretrained model on all the test datasets used in SetFit, run:
 
 ```
 python run_full.py train-all-datasets --model-id=roberta-large --batch-size=4
+```
+
+Or we can run the datasets one by one:
+
+```
+python run_full.py train-single-dataset --dataset-id=sst5 --metric=accuracy --model-id=roberta-large --learning-rate=2e-5 --batch-size=24
+rm -rf checkpoints
+python run_full.py train-single-dataset --dataset-id=SentEval-CR --metric=accuracy --model-id=roberta-large --learning-rate=2e-5 --batch-size=24
+rm -rf checkpoints
+python run_full.py train-single-dataset --dataset-id=amazon_counterfactual_en --metric=matthews_correlation --model-id=roberta-large --learning-rate=2e-5 --batch-size=24
+rm -rf checkpoints
+python run_full.py train-single-dataset --dataset-id=ag_news --metric=accuracy --model-id=roberta-large --learning-rate=2e-5 --batch-size=4
+rm -rf checkpoints
+python run_full.py train-single-dataset --dataset-id=enron_spam --metric=accuracy --model-id=roberta-large --learning-rate=2e-5 --batch-size=8
+rm -rf checkpoints
 ```
 
 ### Multilingual finetuning

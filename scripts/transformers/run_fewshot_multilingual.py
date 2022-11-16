@@ -8,7 +8,7 @@ from datasets import concatenate_datasets, load_dataset
 from evaluate import load
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, Trainer, TrainingArguments
 
-from setfit.data import SAMPLE_SIZES, create_fewshot_splits
+from setfit.data import create_fewshot_splits
 from setfit.utils import MULTILINGUAL_DATASET_TO_METRIC
 from utils import get_label_mappings, save_metrics
 
@@ -17,7 +17,7 @@ app = typer.Typer()
 
 RESULTS_PATH = Path("results")
 RESULTS_PATH.mkdir(parents=True, exist_ok=True)
-
+SAMPLE_SIZES = [8,64]
 
 @app.command()
 def train_single_dataset(

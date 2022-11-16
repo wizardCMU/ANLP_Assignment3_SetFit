@@ -26,7 +26,7 @@ RESULTS_PATH.mkdir(parents=True, exist_ok=True)
 
 @app.command()
 def train_single_dataset(
-    model_id: str = "distilbert-base-uncased",
+    model_id: str = "roberta-large",
     dataset_id: str = "sst2",
     metric: str = "accuracy",
     learning_rate: float = 2e-5,
@@ -134,7 +134,7 @@ def train_single_dataset(
 
 @app.command()
 def train_all_datasets(
-    model_id: str = "distilbert-base-uncased",
+    model_id: str = "roberta-large",
     learning_rate: float = 2e-5,
     batch_size: int = 4,
     num_train_epochs: int = 20,
