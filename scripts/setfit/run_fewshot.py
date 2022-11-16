@@ -29,7 +29,7 @@ def parse_args():
     parser.add_argument("--sample_sizes", type=int, nargs="+", default=SAMPLE_SIZES)
     parser.add_argument("--num_iterations", type=int, default=20)
     parser.add_argument("--num_epochs", type=int, default=1)
-    parser.add_argument("--batch_size", type=int, default=8)
+    parser.add_argument("--batch_size", type=int, default=16)
     parser.add_argument("--max_seq_length", type=int, default=256)
     parser.add_argument(
         "--classifier",
