@@ -17,8 +17,8 @@ from sklearn.linear_model import LogisticRegression
 from torch.utils.data import DataLoader
 
 from setfit.data import SAMPLE_SIZES, create_fewshot_splits
-from setfit.modeling import LOSS_NAME_TO_CLASS, SKLearnWrapper, SupConLoss, sentence_pairs_generation
-from setfit.utils import MULTILINGUAL_DATASET_TO_METRIC
+from setfit.modeling import SKLearnWrapper, SupConLoss, sentence_pairs_generation
+from setfit.utils import LOSS_NAME_TO_CLASS, MULTILINGUAL_DATASET_TO_METRIC
 
 
 # ignore all future warnings
