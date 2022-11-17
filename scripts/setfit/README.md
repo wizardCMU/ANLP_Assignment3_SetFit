@@ -32,6 +32,7 @@ Similarly, you can run `SetFit` over all the test datasets in the paper by runni
 
 ```
 python run_fewshot.py --sample_sizes=8 --is_test_set=true
+python run_fewshot.py --sample_sizes=64 --is_test_set=true
 ```
 
 ### Exhaustive example
